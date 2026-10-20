@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="kk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Семей</title>
+<style>
+:root{--night:#0b2236;--river:#17476b;--sand:#f4ecdb;--paper:#fffaf0;--c2:#fff;--alt:#fbf6ea;--copper:#c8742b;--gold:#e3b04b;--ink:#1d2733;--line:#e2d5b8}
+[data-theme=dark]{--sand:#0d1722;--paper:#152231;--c2:#1b2d40;--alt:#182838;--ink:#e6edf5;--line:#2b3d52}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font:16px/1.7 "Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--sand);transition:.3s}
+h1,h2,h3{font-family:Georgia,serif;line-height:1.2}
+#bar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--gold);z-index:20}
+.hero{position:relative;color:#fff;text-align:center;padding:90px 20px 110px;background:radial-gradient(circle at 80% 20%,rgba(227,176,75,.35),transparent 40%),radial-gradient(circle at 10% 90%,rgba(200,116,43,.3),transparent 45%),linear-gradient(160deg,var(--night),var(--river))}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:60px;background:var(--sand);clip-path:polygon(0 60%,12% 40%,25% 65%,40% 35%,55% 62%,70% 38%,85% 60%,100% 35%,100% 100%,0 100%)}
+.hero small{display:inline-block;padding:6px 16px;border:1px solid var(--gold);color:var(--gold);border-radius:30px;margin-bottom:22px}
+.hero h1{font-size:clamp(38px,7vw,76px);text-shadow:0 6px 30px rgba(0,0,0,.4)}.hero p{max-width:640px;margin:18px auto 0;color:#cfdceb;font-size:18px}
+.stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:38px}
+.stats div{min-width:150px;padding:14px 22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;backdrop-filter:blur(6px)}
+.stats b{display:block;font:700 30px Georgia,serif;color:var(--gold)}.stats span{font-size:13px;color:#cfdceb}
+nav{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:10px;background:rgba(11,34,54,.96);box-shadow:0 4px 20px rgba(0,0,0,.25)}
+nav a,nav button{color:#dbe7f3;text-decoration:none;padding:9px 22px;border-radius:30px;font-weight:600;cursor:pointer;transition:.2s;background:none;border:0;font:inherit}
+nav a:hover{background:rgba(255,255,255,.12)}nav a.active{background:var(--copper);color:#fff}
+.wrap{max-width:1180px;margin:-10px auto 40px;padding:0 20px;display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 38px;box-shadow:0 12px 40px rgba(11,34,54,.1)}
+.card h2{font-size:32px;margin-bottom:18px;padding-bottom:12px;border-bottom:3px solid var(--copper);display:inline-block}.card p{margin-bottom:14px;font-size:17px;max-width:75ch}.card img{display:block;margin:20px auto 0;max-width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.card section{display:none;animation:in .35s}.card section.on{display:block}@keyframes in{from{opacity:0;transform:translateY(10px)}}
+#cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.place{padding:18px;border-radius:14px;background:var(--c2);border:1px solid var(--line);border-left:5px solid var(--copper);transition:.25s}
+.place:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(11,34,54,.15)}.place em{font-style:normal;font-weight:700;color:var(--copper)}.place h3{font-size:19px;margin:4px 0 6px}.place p{font-size:15px;margin:0}
+aside{position:sticky;top:76px;background:linear-gradient(180deg,var(--night),var(--river));color:#fff;border-radius:18px;padding:28px 26px}aside h3{color:var(--gold);margin-bottom:18px}
+.t{position:relative;padding:0 0 18px 22px;border-left:2px solid rgba(255,255,255,.25);font-size:14px;color:#dbe7f3}
+.t::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(227,176,75,.25)}.t b{display:block;font:700 18px Georgia,serif;color:#fff}
+.tools,.row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+input,select,textarea,button{font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--c2);color:var(--ink)}
+button{background:var(--copper);color:#fff;border:0;font-weight:700;cursor:pointer}button.alt{background:none;color:var(--ink);border:1px solid var(--line)}
+.scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}table{border-collapse:collapse;width:100%;font-size:15px;background:var(--c2)}
+th{background:var(--night);color:#fff;padding:12px;text-align:left;cursor:pointer}td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}tr:nth-child(even) td{background:var(--alt)}
+td button{padding:2px 8px;background:none;color:var(--copper);font-size:18px}.form{margin-top:10px;padding:20px;background:var(--alt);border:1px dashed var(--copper);border-radius:14px;display:grid;gap:10px}
+footer{text-align:center;padding:30px;background:var(--night);color:#9fb4c8}footer b{color:var(--gold)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}aside{position:static}.card{padding:24px 20px}}
+</style></head><body><div id="bar"></div>
+<header class="hero"><small>Абай облысы · Қазақстан</small><h1>Семей</h1><p>Абай мен Әуезовтің қаласы: Ертіс жағасындағы үш ғасырлық тарих.</p>
+<div class="stats"><div><b data-n="1718">0</b><span>қала негізі қаланды</span></div><div><b data-n="1883">0</b><span>өлкетану мұражайы</span></div><div><b data-n="2022">0</b><span>Абай облысының орталығы</span></div></div></header>
+<nav><a href="#about">Басты бет</a><a href="#history">Тарих</a><a href="#places">Көне жерлер</a><a href="#db">Дерекқор</a><button onclick="toggleTheme()" title="Күн/түн">◐</button></nav>
+<div class="wrap"><main class="card">
+<section id="about"><h2>Семей туралы</h2><p>Семей — Қазақстанның шығысындағы қала, Ертіс өзенінің жағасында орналасқан. 2022 жылы құрылған Абай облысының орталығы. Халқы 350 мыңнан асады. Қала бұрын Семипалатинск деп аталған, ал қазіргі атауы 2007 жылы қайтарылды.</p><p>Семей — қазақ әдебиетінің орталығы. Мұнда Абай, Шәкәрім, Мұхтар Әуезов өмір сүріп, шығармашылықпен айналысты. Сонымен қатар Семей ядролық сынақтардың зардабын көрген өңір ретінде де әлемге белгілі.</p><img src="semey.jpg" width="500" alt="Семей" onerror="this.remove()"></section>
+<section id="history"><h2>Қала тарихы</h2><p>1718 жылы Ертіс бойында орыс бекінісі салынды. Оның жанында моңғол-жоңғар дәуіріне жататын жеті ғимараттың қирандысы болғандықтан, бекіністі «Семипалатная» деп атады. 1776-78 жылдары бекіністі қазіргі орнына көшірді.</p><p>XIX ғасырда Семей Ресей мен Орта Азия арасындағы сауда орталығына айналды. 1854–1859 жылдары мұнда Достоевский болды, ал Абай осы қалада орыс мәдениетімен танысты.</p><p>1917–1920 жылдары қалада Алаш Орда үкіметі жұмыс істеді. 1949 жылы Семей маңында алғашқы кеңестік атом бомбасы сыналды, полигон 1991 жылы жабылды.</p><img src="history.jpg" width="500" alt="Семей тарихы" onerror="this.remove()"></section>
+<section id="places"><h2>Көне және көрнекті жерлер</h2><div id="cards"></div><img src="abai.jpg" width="400" alt="Абай мұражайы" onerror="this.remove()"></section>
+<section id="db"><h2>Дерекқор: Семей көрікті жерлері</h2>
+<div class="tools"><input id="q" oninput="render()" placeholder="Іздеу..."><select id="ft" onchange="render()"></select><label><input type="checkbox" id="fv" onchange="render()"> ★ таңдаулылар</label><button class="alt" onclick="exportCSV()">CSV жүктеу</button></div>
+<p id="count"></p><div class="scroll"><table><thead><tr><th onclick="sortBy('id')">№</th><th onclick="sortBy('name')">Атауы</th><th onclick="sortBy('type')">Түрі</th><th onclick="sortBy('year')">Жылы</th><th>Сипаттама</th><th></th></tr></thead><tbody id="body"></tbody></table></div>
+<h3 style="margin:22px 0 10px">Жаңа жазба қосу</h3><div class="form"><div class="row"><input id="n" placeholder="Атауы" style="flex:1"><select id="t"></select><input id="y" type="number" placeholder="Жылы" style="width:110px"></div><textarea id="tx" rows="3" placeholder="Сипаттама"></textarea><div class="row"><button onclick="addRow()">Қосу</button><button class="alt" onclick="clearExtra()">Өз жазбаларымды өшіру</button></div></div></section>
+</main><aside id="tl"><h3>Жылнама</h3></aside></div>
+<footer>Оқу сайты. © 2026. Автор: <b>Ауезбай Эльбрус</b></footer>
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const TYPES = ['Мұражай', 'Тарихи орын', 'Табиғат', 'Архитектура'];
+const BASE = [['Абай мұражайы',0,1940,'Ұлы ақын Абай Құнанбайұлының (1845–1904) әдеби-мемориалдық мұражайы.'],['Достоевский мұражайы',0,1971,'Жазушы 1854–1859 жылдары Семейде жер аударылып тұрды. Ол тұрған үй мұражайға айналған.'],['Әуезов үй-мұражайы',0,1997,'Мұхтар Әуезовтің Семейдегі жастық шағы мен «Абай жолы» эпопеясы туралы.'],['Өлкетану мұражайы',0,1883,'Қазақстандағы ең көне мұражайлардың бірі.'],['Жидебай-Бөрілі қорығы',1,1995,'Абайдың қыстауы мен мазары, Семейден шамамен 180 км.'],['Ядролық сынақ полигоны',1,1949,'КСРО-ның алғашқы атом бомбасы 1949 жылы 29 тамызда осында сыналды. Полигон 1991 жылы жабылды.'],['Атом көлі (Шаған)',2,1965,'1965 жылы жер асты ядролық жарылыстан пайда болған жасанды көл.'],['Ертіс және вантты көпір',2,2011,'Семейді екіге бөлетін өзен және қаланың белгісіне айналған көпір.'],['Семей орманы',2,2003,'Ертіс жағасындағы ленталы қарағайлы орман.'],['Татар мешіті',3,1856,'Қаланың ескі бөлігіндегі XIX ғасырдағы тарихи мешіт.'],['Алаш Орда үкіметі',1,1917,'1917–1920 жылдары Алаш автономиясының үкіметі Семейде орналасты.']].map((r, i) => ({id: i + 1, name: r[0], type: TYPES[r[1]], year: r[2], text: r[3]}));
+const TL = [[1718, 'бекіністің салынуы'], [1845, 'Абай дүниеге келді'], [1883, 'өлкетану мұражайы'], [1949, 'полигондағы алғашқы сынақ'], [1991, 'полигон жабылды'], [2022, 'Абай облысы құрылды']];
+const ls = (k, d) => { try { return JSON.parse(localStorage[k]) ?? d } catch { return d } }, save = (k, v) => { try { localStorage[k] = JSON.stringify(v) } catch {} };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+let extra = ls('extra', []), favs = ls('favs', []), sort = {k: 'id', d: 1};
+const all = () => [...BASE, ...extra];
+function render() {   // кестені іздеу, сүзу, сұрыптау арқылы салу
+  const q = $('#q').value.toLowerCase(), t = $('#ft').value, fv = $('#fv').checked;
+  const rows = all().filter(r => (!t || r.type === t) && (!fv || favs.includes(r.id)) && (r.name + r.text).toLowerCase().includes(q))
+    .sort((a, b) => (a[sort.k] > b[sort.k] ? 1 : -1) * sort.d);
+  $('#body').innerHTML = rows.map(r => `<tr><td>${r.id}</td><td><b>${esc(r.name)}</b></td><td>${r.type}</td><td>${r.year}</td><td>${esc(r.text)}</td><td style="white-space:nowrap"><button onclick="toggleFav(${r.id})">${favs.includes(r.id) ? '★' : '☆'}</button>${r.id > BASE.length ? `<button onclick="del(${r.id})">✕</button>` : ''}</td></tr>`).join('') || '<tr><td colspan=6>Ештеңе табылмады</td></tr>';
+  $('#count').textContent = `Табылған жазба: ${rows.length} / ${all().length}`;
+  $('#cards').innerHTML = all().map(r => `<div class="place"><img src="photos/${r.id}.jpg" alt="" style="margin:0 0 10px;width:100%;height:130px;object-fit:cover" onerror="this.remove()"><em>${r.year}</em><h3>${esc(r.name)}</h3><p>${esc(r.text)}</p></div>`).join('');
+}
+const sortBy = k => { sort = {k, d: sort.k === k ? -sort.d : 1}; render(); };
+const toggleFav = id => { favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id]; save('favs', favs); render(); };
+const del = id => { extra = extra.filter(r => r.id !== id); save('extra', extra); render(); };
+const clearExtra = () => confirm('Өзіңіз қосқан жазбалар өшіріледі. Жалғастырасыз ба?') && (extra = [], save('extra', extra), render());
+function addRow() {
+  const name = $('#n').value.trim(), text = $('#tx').value.trim(), year = +$('#y').value;
+  if (!name || !text || !year) return alert('Атауын, жылын және сипаттамасын толтырыңыз');
+  extra.push({id: Math.max(...all().map(r => r.id)) + 1, name, type: $('#t').value, year, text}); save('extra', extra);
+  ['#n', '#y', '#tx'].forEach(s => $(s).value = ''); render();
+}
+function exportCSV() {   // кестені CSV файл ретінде жүктеу
+  const csv = '\ufeff' + all().map(r => [r.id, r.name, r.type, r.year, r.text].map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+  Object.assign(document.createElement('a'), {href: URL.createObjectURL(new Blob([csv], {type: 'text/csv'})), download: 'semey.csv'}).click();
+}
+function toggleTheme() { const d = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = d; save('theme', d); }
+function show() {   // хэш бойынша бөлімді ауыстыру: #about, #history...
+  const id = $(location.hash || '#about') ? location.hash.slice(1) : 'about';
+  $$('.card section').forEach(s => s.classList.toggle('on', s.id === id));
+  $$('nav a').forEach(a => a.classList.toggle('active', a.hash === '#' + id));
+}
+function count() {   
+  $$('[data-n]').forEach(el => { const n = +el.dataset.n, t0 = performance.now(); (function f(t) { const p = Math.min((t - t0) / 1200, 1); el.textContent = Math.round(n * p); p < 1 && requestAnimationFrame(f); })(t0); });
+}
+document.documentElement.dataset.theme = ls('theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+$('#ft').innerHTML = '<option value="">Барлық түрі</option>' + TYPES.map(t => `<option>${t}</option>`).join(''); $('#t').innerHTML = TYPES.map(t => `<option>${t}</option>`).join('');
+$('#tl').innerHTML += TL.map(([y, t]) => `<div class="t"><b>${y}</b>${t}</div>`).join('');
+addEventListener('hashchange', show); addEventListener('scroll', () => $('#bar').style.width = scrollY / (document.body.scrollHeight - innerHeight) * 100 + '%');
+render(); show(); count();
+</script></body></html>
